@@ -1,0 +1,53 @@
+%!TEX program = xelatex
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+% 学硕和专硕请将目录下对应的cls文件重命名为bjutthesis.cls
+\documentclass[type=master]{bjutthesis}
+\usepackage{bjutthesis}
+
+% 定义所有的图片文件在 fig 子目录下
+\graphicspath{{fig/}}
+
+\begin{document}
+\frontmatter
+\input{data/cover}
+\makecover
+% 目录
+\tableofcontents
+\bjutclearpage % 保证在偶数页结束本章节
+%插图索引
+\listoffigures
+\bjutclearpage
+% 表格索引
+\listoftables
+\bjutclearpage
+% 公式索引
+\listofequations
+\bjutclearpage
+% 符号表示 
+\input{data/notation}
+\bjutclearpage
+%%% 正文部分
+\mainmatter
+\include{data/chap01}
+% \include{data/chap02}
+% \include{data/chap03}
+% \include{data/chap04}
+% \include{data/chap05}
+% \include{data/chap06}
+% \include{data/chap07}
+\include{data/conclusion}
+\include{data/publications}
+
+\backmatter
+
+%% 参考文献
+\bibliographystyle{bjutthesis}
+\bibliography{ref/refs}
+\bjutclearpage
+
+%% 致谢
+\include{data/ack}
+
+\end{document}

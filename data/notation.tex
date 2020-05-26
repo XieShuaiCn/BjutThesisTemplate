@@ -1,0 +1,32 @@
+% 写法一，单列列表，可以通过参数设置label宽度
+% \begin{denotation} % [5cm]
+%     \item[E] 误差
+%     \item[T] 位姿
+%     \item[$\bm{P}$] 三维点
+% \end{denotation}  
+% 写法二，两列表格，可以通过参数做单列或加三线等，参数格式同tabular
+\begin{notation}%[p{1.4cm}<{\centering} p{5cm}<{\centering} p{1.4cm}<{\centering} p{5cm}<{\centering}]
+    \hline
+    符号 &含义 &
+    符号 &含义\\
+    \hline
+    $\bm{P}$ &三维点 &        
+    $\bm{L}$  &三维线\\
+    $\bm{p}$ &二维点 &
+    $\bm{l}$ &二维线\\
+    $\bm{\pi}$ &平面 &
+    $F$ &图像帧 \\
+    $\bm{R}$ &旋转矩阵 &
+    $\bm{t}$ &平移向量 \\
+    $\bm{K}$  &相机内参矩阵 &       
+    $\bm{T}$ &相机变换矩阵 \\
+    $\bm{\mathcal{K}}$ & 直线投影的相机内参矩阵 &
+    $\bm{\mathcal{H}}$ & 三维直线的相机变换矩阵 \\
+    $\rho_h$ &Huber鲁棒代价函数 &       
+    $\phi$ &投影函数\\
+    $e$ &重投影误差 &
+    $E$     &误差函数 \\
+    $\bm{\Omega}$ &协方差矩阵 &
+    $\Phi$ & 可信度 \\
+    \hline
+\end{notation}

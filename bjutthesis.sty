@@ -1,0 +1,105 @@
+\ProvidesPackage{bjutthesis}[2020/05/01 put any packages you would like to use here]
+
+% 处理数学公式中的黑斜体的宏包
+\RequirePackage{bm}
+
+% 用于多行多列的方程式、矩阵等
+\RequirePackage{amsmath}
+
+% 不同于 \mathcal \mathfrak 之类的英文花体字体
+% \RequirePackage{mathrsfs}
+
+% 表格中支持跨行
+\RequirePackage{multirow}
+
+% 固定宽度的表格
+\RequirePackage{tabularx}
+
+% 表格中的反斜线
+\RequirePackage{diagbox}
+
+% 确定浮动对象的位置，可以使用 H，强制将浮动对象放到这里（可能效果很差）
+\RequirePackage{float}
+
+% 字体
+\usepackage{fontspec}
+
+% 为标题引用等内容加跳转链接
+\usepackage{hyperref}
+
+% 浮动图形控制宏包。
+% 允许上一个 section 的浮动图形出现在下一个 section 的开始部分
+% 该宏包提供处理浮动对象的 \FloatBarrier 命令，使所有未处
+% 理的浮动图形立即被处理。这三个宏包仅供参考，未必使用：
+% \RequirePackage[below]{placeins}
+% \RequirePackage{floatflt} % 图文混排用宏包
+% \RequirePackage{rotating} % 图形和表格的控制旋转
+
+% 给自定义的宏后面自动加空白
+% \RequirePackage{xspace}
+
+%\RequirePackage[]{algorithm2e}
+%\RequirePackage{algorithmic}
+%\RequirePackage{algorithm,float}
+%\RequirePackage{algorithm}
+%\RequirePackage{algorithmic}
+\RequirePackage[ruled,vlined]{algorithm2e}
+%\RequirePackage{algpseudocode}
+\makeatletter
+\newenvironment{breakablealgorithm}
+  {% \begin{breakablealgorithm}
+   \begin{center}
+     \refstepcounter{algorithm}% New algorithm
+     \hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled 画线
+     \renewcommand{\caption}[2][\relax]{% Make a new \caption
+       {\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}%
+       \ifx\relax##1\relax % #1 is \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+       \else % #1 is not \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+       \fi
+       \kern2pt\hrule\kern2pt
+     }
+  }{% \end{breakablealgorithm}
+     \kern2pt\hrule\relax% \@fs@post for \@fs@ruled 画线
+   \end{center}
+  }
+\makeatother
+
+% 借用 ltxdoc 里面的几个命令。
+\def\cmd#1{\cs{\expandafter\cmd@to@cs\string#1}}
+\def\cmd@to@cs#1#2{\char\number`#2\relax}
+\DeclareRobustCommand\cs[1]{\texttt{\char`\\#1}}
+
+\newcommand*{\meta}[1]{{%
+  \ensuremath{\langle}\rmfamily\itshape#1\/\ensuremath{\rangle}}}
+\providecommand\marg[1]{%
+  {\ttfamily\char`\{}\meta{#1}{\ttfamily\char`\}}}
+\providecommand\oarg[1]{%
+  {\ttfamily[}\meta{#1}{\ttfamily]}}
+\providecommand\parg[1]{%
+  {\ttfamily(}\meta{#1}{\ttfamily)}}
+\providecommand\pkg[1]{{\sffamily#1}}
+
+% 上角标引用
+\newcommand{\tcite}[1]{\cite{#1}}
+% 中间标引用
+\newcommand{\mcite}[1]{\scalebox{1.3}[1.3]{\raisebox{-0.65ex}{\cite{#1}}}}
+\usepackage{tikz}
+\newcommand*{\circled}[1]{\lower.7ex\hbox{\tikz\draw (0pt, 0pt)%
+    circle (.45em) node {\makebox[0.9em][c]{\small #1}};}}
+
+\newcommand{\bjutclearonepage}{
+  %\if@openright\cleardoublepage\else\clearpage\fi
+  \newpage
+}
+\newcommand{\bjutcleartwopage}{
+  %\if@openright\cleardoublepage\else\clearpage\fi
+  \newpage\mbox{}\newpage
+}
+
+\newcommand{\bjutclearpage}{
+  \ifodd\value{page}\newpage\mbox{}\newpage\else\newpage\fi
+}
+
+\endinput

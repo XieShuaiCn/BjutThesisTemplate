@@ -1,0 +1,37 @@
+# latex 
+*.log
+*.aux
+*.synctex.gz
+*.pdf
+*.aux
+*.bak
+*.bbl
+*.blg
+*.dvi
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.ist
+*.log
+*.out
+*.thm
+*.toc
+*.lof
+*.lot
+*.loe
+*.vrb
+*.hd
+*.fdb_latexmk
+*.fls
+
+# IDE
+.vscode
+
+# filesystem
+.DS_Store
+
+# cache
+*.swp
+~$*

@@ -604,10 +604,10 @@
   \renewcommand{\baselinestretch}{0.8}
   \begin{tabular}{p{0.2\textwidth}lp{0.8\textwidth}}%{p{0.2\textwidth}lp{0.2\textwidth}c}
     %{p{0.6\columnwidth}lp{0.6\columnwidth}r}
-    \makebox[7em][s]{\wuhao\songti\bf 中文图书分类号:} &{\wuhao\songti\bf \thu@catalognumber} \\
-    \makebox[7em][s]{\wuhao\songti\bf   密\hspace{\fill}级:} &{\wuhao\songti\bf \thu@secretlevel}\\
-    \makebox[7em][s]{\wuhao\songti\bf \hspace{\fill}UDC:} &{\wuhao\songti\bf \thu@udc}\\  
-    \makebox[7em][s]{\wuhao\songti\bf 学校代码:} &{\wuhao\songti\bf \thu@id}\\
+    \makebox[7em][s]{\wuhao\songti\bfseries 中文图书分类号:} &{\wuhao\songti\bfseries \thu@catalognumber} \\
+    \makebox[7em][s]{\wuhao\songti\bfseries   密\hspace{\fill}级:} &{\wuhao\songti\bfseries \thu@secretlevel}\\
+    \makebox[7em][s]{\wuhao\songti\bfseries \hspace{\fill}UDC:} &{\wuhao\songti\bfseries \thu@udc}\\  
+    \makebox[7em][s]{\wuhao\songti\bfseries 学校代码:} &{\wuhao\songti\bfseries \thu@id}\\
   \end{tabular}
 \end{flushleft}
 
@@ -624,34 +624,34 @@
 \parbox[t][9cm][t]{\thu@xs@cover@width}{
       \renewcommand{\baselinestretch}{1.3}
       \begin{center}
-        % \yihao[1.2]{\xiaoyi\kaishu\bf \thu@ctitle}\par%
-        {\xiaoyi\chuhao\bf \thu@ccovertype}
+        % \yihao[1.2]{\xiaoyi\kaishu\bfseries \thu@ctitle}\par%
+        {\xiaoyi\chuhao\bfseries \thu@ccovertype}
         \vskip 0.5cm        
 \ifthu@professional
-        {\xiaoyi\xiaoer\bf \MakeUppercase{\thu@ecovertype}}\\
+        {\xiaoyi\xiaoer\bfseries \MakeUppercase{\thu@ecovertype}}\\
 \else
-        {\xiaoyi\erhao\bf \MakeUppercase{\thu@ecovertype}}\\
+        {\xiaoyi\erhao\bfseries \MakeUppercase{\thu@ecovertype}}\\
 \fi
       \end{center}
 \begin{flushleft}
 \vskip 4cm
 \begin{tabular}%{p{0.2\textwidth}lp{0.2\textwidth}c}
 {p{0.3\columnwidth}p{0.6\columnwidth}l}
-\makebox[9em][s]{\sanhao\songti\bf   论\hspace{\fill}文\hspace{\fill}题\hspace{\fill}目:}  & {\sanhao\songti\bf \thu@ctitle}\\
+\makebox[9em][s]{\sanhao\songti\bfseries   论\hspace{\fill}文\hspace{\fill}题\hspace{\fill}目:}  & {\sanhao\songti\bfseries \thu@ctitle}\\
 &\\
 &\\
-\makebox[9em][s]{\sanhao\songti\bf   论\hspace{\fill}文\hspace{\fill}作\hspace{\fill}者:}  & {\sanhao\songti\bf \thu@cauthor}\\
+\makebox[9em][s]{\sanhao\songti\bfseries   论\hspace{\fill}文\hspace{\fill}作\hspace{\fill}者:}  & {\sanhao\songti\bfseries \thu@cauthor}\\
 &\\
 \ifthu@professional
-\makebox[9em][s]{\sanhao\songti\bf   专\hspace{\fill}业\hspace{\fill}类\hspace{\fill}别\hspace{\fill}/\hspace{\fill}领\hspace{\fill}域:}
+\makebox[9em][s]{\sanhao\songti\bfseries   专\hspace{\fill}业\hspace{\fill}类\hspace{\fill}别\hspace{\fill}/\hspace{\fill}领\hspace{\fill}域:}
 \else
-\makebox[9em][s]{\sanhao\songti\bf   学\hspace{\fill}科:}
+\makebox[9em][s]{\sanhao\songti\bfseries   学\hspace{\fill}科:}
 \fi
-& {\sanhao\songti\bf \thu@cdepartment}\\
+& {\sanhao\songti\bfseries \thu@cdepartment}\\
 &\\
-\makebox[9em][s]{\sanhao\songti\bf   指\hspace{\fill}导\hspace{\fill}教\hspace{\fill}师:}  & {\sanhao\songti\bf \thu@csupervisor}\\
+\makebox[9em][s]{\sanhao\songti\bfseries   指\hspace{\fill}导\hspace{\fill}教\hspace{\fill}师:}  & {\sanhao\songti\bfseries \thu@csupervisor}\\
 &\\
-\makebox[9em][s]{\sanhao\songti\bf  论\hspace{\fill}文\hspace{\fill}提\hspace{\fill}交\hspace{\fill}日\hspace{\fill}期:}  &{\sanhao\songti\bf \thu@cdate}\\
+\makebox[9em][s]{\sanhao\songti\bfseries  论\hspace{\fill}文\hspace{\fill}提\hspace{\fill}交\hspace{\fill}日\hspace{\fill}期:}  &{\sanhao\songti\bfseries \thu@cdate}\\
 \end{tabular}
 \end{flushleft}
 }

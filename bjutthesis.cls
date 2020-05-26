@@ -50,11 +50,12 @@
 \def\thu@deprecated@type@option{%
   \kvsetkeys{thu}{type=\CurrentOption} % for compatability.
   \ClassError{bjutthesis}{Option '\CurrentOption' is deprecated, \MessageBreak
-                         please use 'type=\CurrentOption' instead}{}}
+                           please use 'type=\CurrentOption' instead}{}}
 \DeclareVoidOption{bachelor}{\thu@deprecated@type@option}
 \DeclareVoidOption{master}{\thu@deprecated@type@option}
 \DeclareVoidOption{doctor}{\thu@deprecated@type@option}
 \DeclareVoidOption{postdoctor}{\thu@deprecated@type@option}
+\DeclareBoolOption{professional}
 \DeclareBoolOption{secret}
 \DeclareBoolOption{arialtoc}
 \DeclareBoolOption{arialtitle}
@@ -66,6 +67,15 @@
   arialtitle}
 \ProcessKeyvalOptions*
 \PassOptionsToPackage{no-math}{fontspec}
+\ifthu@bachelor
+  \typeout{大学本科论文}
+\else
+  \ifthu@professional\typeout{专业学位}\else\typeout{学术学位}\fi
+  \ifthu@master\typeout{硕士论文}
+  \else\ifthu@doctor\typeout{博士论文}
+  \else\ifthu@postdoctor\typeout{博士后论文}
+  \fi\fi\fi
+\fi
 \LoadClass[a4paper,openany,UTF8,zihao=-4,scheme=plain]{ctexbook}
 \ifthu@bachelor\relax\else
   \ifthu@master\relax\else
@@ -105,6 +115,7 @@
 \RequirePackage{array}
 \RequirePackage{longtable}
 \RequirePackage{booktabs}
+\RequirePackage{setspace}
 \RequirePackage[numbers,super,sort&compress]{natbib}
 \patchcmd{\@chapter}{\addtocontents{lof}{\protect\addvspace{10\p@}}}{}{}{} % lof
 \patchcmd{\@chapter}{\addtocontents{lot}{\protect\addvspace{10\p@}}}{}{}{} % lot
@@ -165,7 +176,7 @@
   \pagenumbering{Roman}
   \pagestyle{thu@empty}}
   
-  \renewenvironment{appendix}{%
+\renewenvironment{appendix}{%
   %\bnu@appendix
  % \renewcommand \thechapter { \@arabic\c@chapter} %% 附录用阿拉伯数字编码
   \thu@chapter*{结\ \ \ \ 论}
@@ -247,7 +258,7 @@
 \fancypagestyle{thu@headings}{%
   \fancyhead{}
   \fancyhead[OC]{\jiudianwu\kaishu\leftmark}
-  \fancyhead[EC]{\jiudianwu\kaishu\ 北京工业大学工程硕士专业学位论文}
+  \fancyhead[EC]{\jiudianwu\kaishu\ \thu@cpageheading}
   \fancyfoot{}
   \fancyfoot[C]{-\wuhao\thepage-}
   \renewcommand{\headrulewidth}{0.4pt}
@@ -439,6 +450,10 @@
   \csname #1\endcsname{}}
 \thu@def@term{secretlevel}
 \thu@def@term{secretyear}
+\thu@def@term{ccovertype}
+\thu@def@term{ecovertype}
+\thu@def@term{cthesistype}
+\thu@def@term{cthesistypep}
 \thu@def@term{ctitle}
 \thu@def@term{etitle}
 \thu@def@term{cauthor}
@@ -456,6 +471,7 @@
 \thu@def@term{cdegree}
 \thu@def@term{edegree}
 \thu@def@term{cdepartment}
+\thu@def@term{cpageheading}
 \thu@def@term{udc}
 \thu@def@term{id}
 \thu@def@term{catalognumber}
@@ -565,7 +581,7 @@
       \ifthu@secret{\heiti\sanhao\thu@secretlevel\thu@secret@content}\else\rule{1cm}{0cm}\fi}
     \ifthu@bachelor
       \vskip0.45cm
-      {\includegraphics{tsinghua}}
+      {\includegraphics{bjut.png}}
       \par\vskip1.5cm
       {\xiaochu\heiti\ziju{0.5}\thu@bachelor@subtitle}
       \vskip2.2cm
@@ -584,28 +600,39 @@
     \else
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{flushleft}
-\vskip -2cm 
-\renewcommand{\baselinestretch}{0.8}
-\begin{tabular}{p{0.2\textwidth}lp{0.8\textwidth}}%{p{0.2\textwidth}lp{0.2\textwidth}c}
-%{p{0.6\columnwidth}lp{0.6\columnwidth}r}
-\makebox[7em][s]{\wuhao\songti\bf 中文图书分类号:} &{\wuhao\songti\bf \thu@catalognumber} \\
-\makebox[7em][s]{\wuhao\songti\bf   密\hspace{\fill}级:} &{\wuhao\songti\bf \thu@secretlevel}\\
-\makebox[7em][s]{\wuhao\songti\bf \hspace{\fill}UDC:} &{\wuhao\songti\bf \thu@udc}\\  
- \makebox[7em][s]{\wuhao\songti\bf 学校代码:} &{\wuhao\songti\bf \thu@id}\\
-\end{tabular}
+  \vskip -2cm 
+  \renewcommand{\baselinestretch}{0.8}
+  \begin{tabular}{p{0.2\textwidth}lp{0.8\textwidth}}%{p{0.2\textwidth}lp{0.2\textwidth}c}
+    %{p{0.6\columnwidth}lp{0.6\columnwidth}r}
+    \makebox[7em][s]{\wuhao\songti\bf 中文图书分类号:} &{\wuhao\songti\bf \thu@catalognumber} \\
+    \makebox[7em][s]{\wuhao\songti\bf   密\hspace{\fill}级:} &{\wuhao\songti\bf \thu@secretlevel}\\
+    \makebox[7em][s]{\wuhao\songti\bf \hspace{\fill}UDC:} &{\wuhao\songti\bf \thu@udc}\\  
+    \makebox[7em][s]{\wuhao\songti\bf 学校代码:} &{\wuhao\songti\bf \thu@id}\\
+  \end{tabular}
 \end{flushleft}
 
 \vskip 1.5cm 
 \includegraphics[]{bjut.png}
 
-\parbox[t][9cm][t]{\paperwidth-6cm}{
+\ifthu@professional
+  \def\thu@xs@cover@width{\paperwidth-6cm}
+\else\ifthu@bachelor
+  \def\thu@xs@cover@width{\paperwidth-6cm}
+\else
+  \def\thu@xs@cover@width{\paperwidth-8cm}
+\fi\fi
+\parbox[t][9cm][t]{\thu@xs@cover@width}{
       \renewcommand{\baselinestretch}{1.3}
       \begin{center}
-        %\yihao[1.2]{\xiaoyi\kaishu\bf \thu@ctitle}\par%
-       {\xiaoyi\chuhao\bf 硕\hspace{\fill}士\hspace{\fill}专\hspace{\fill}业\hspace{\fill}学\hspace{\fill}位\hspace{\fill}论\hspace{\fill}文}
-\vskip 0.5cm        
-        {\xiaoyi\xiaoer\bf PROFESSIONAL\  MASTER\  DISSERTATION}\\
-        \end{center}
+        % \yihao[1.2]{\xiaoyi\kaishu\bf \thu@ctitle}\par%
+        {\xiaoyi\chuhao\bf \thu@ccovertype}
+        \vskip 0.5cm        
+\ifthu@professional
+        {\xiaoyi\xiaoer\bf \MakeUppercase{\thu@ecovertype}}\\
+\else
+        {\xiaoyi\erhao\bf \MakeUppercase{\thu@ecovertype}}\\
+\fi
+      \end{center}
 \begin{flushleft}
 \vskip 4cm
 \begin{tabular}%{p{0.2\textwidth}lp{0.2\textwidth}c}
@@ -615,7 +642,12 @@
 &\\
 \makebox[9em][s]{\sanhao\songti\bf   论\hspace{\fill}文\hspace{\fill}作\hspace{\fill}者:}  & {\sanhao\songti\bf \thu@cauthor}\\
 &\\
-\makebox[9em][s]{\sanhao\songti\bf   专\hspace{\fill}业\hspace{\fill}类\hspace{\fill}别\hspace{\fill}/\hspace{\fill}领\hspace{\fill}域:}  & {\sanhao\songti\bf \thu@cdepartment}\\
+\ifthu@professional
+\makebox[9em][s]{\sanhao\songti\bf   专\hspace{\fill}业\hspace{\fill}类\hspace{\fill}别\hspace{\fill}/\hspace{\fill}领\hspace{\fill}域:}
+\else
+\makebox[9em][s]{\sanhao\songti\bf   学\hspace{\fill}科:}
+\fi
+& {\sanhao\songti\bf \thu@cdepartment}\\
 &\\
 \makebox[9em][s]{\sanhao\songti\bf   指\hspace{\fill}导\hspace{\fill}教\hspace{\fill}师:}  & {\sanhao\songti\bf \thu@csupervisor}\\
 &\\
@@ -631,47 +663,61 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{tabular}%{p{0.2\textwidth}lp{0.2\textwidth}c}
-{p{0.6\columnwidth}lp{0.6\columnwidth}r}
+ {p{0.6\columnwidth}lp{0.6\columnwidth}r}
  {\wuhao\songti \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UDC:\ \thu@udc}& {\wuhao\songti 学校代码:\ \thu@id}\\
  {\wuhao\songti 中文图书分类号: \thu@catalognumber} & {\wuhao\songti 学\ \ \ \ \ \ \ \   号:\ \thu@cstudent}\\
  & {\wuhao\songti   密\ \ \ \ \ \ \ \    级:\ \thu@secretlevel}\\
 \end{tabular}
-    
-      \vskip1.1cm
-      \parbox[t][9cm][t]{\paperwidth-8cm}{
-      \renewcommand{\baselinestretch}{1.3}
-      \begin{center}
-        {\bf\xiaoyi\kaishu 北京工业大学硕士专业学位论文}
-        \vskip 1.3cm 
-        {\bf\xiaoyi\kaishu（全日制）}
-      \end{center}
-\vskip 1.8cm 
- 
+
+\vskip 0.9cm
+\parbox[t][9cm][t]{\paperwidth-8.4cm}{
+  \renewcommand{\baselinestretch}{1.3}
+  \ifthu@professional
+    \begin{center}
+      {\xiaoyi\kaishu\bfseries \thu@cthesistype}
+      \vskip 1.5cm 
+      {\xiaoyi\kaishu\bfseries \thu@cthesistypep}
+    \end{center}
+    \vskip 1.5cm 
+  \else
+    \vskip 0.5cm
+    \begin{center}
+      {\xiaoyi\kaishu\bfseries \thu@cthesistype}
+    \end{center}
+    \vskip 2cm 
+  \fi
+\begin{spacing}{1.19}
 \begin{tabular}%{p{0.2\textwidth}lp{0.2\textwidth}c}
-{p{0.2\columnwidth}p{0.6\columnwidth}l}
- {\bf\sihao\songti 题\ \ \ \ \ \ \ \ 目:} & {\sihao\songti \thu@ctitle}\\
- \cline{2-2}
- {\bf\sihao\songti 英文题目:} & {\sihao\songti \thu@etitle}\\
+  {p{0.2\columnwidth}p{0.6\columnwidth}l}
+  {\sihao\songti\bfseries 题\ \ \ \ \ \ \ \ \ \ \ 目:} & {\sihao\songti \thu@ctitle}\\
+  \cline{2-2}
+  {\sihao\songti\bfseries 英\ 文\ 题\ 目:} & {\sihao\songti \MakeUppercase{\thu@etitle}}\\
   \cline{2-2}
 \end{tabular}
+\end{spacing}
 
-\vskip 3.2cm
+\vskip 3.5cm
 {\fangsong\sihao[1.5]
-\begin{tabular}{p{0.3\columnwidth}p{0.6\columnwidth}c}
-    \makebox[9em][s]{\bf   论\hspace{\fill}文\hspace{\fill}作\hspace{\fill}者:}  & {\songti\ziju{0.136875} \thu@cauthor}\\
-    \makebox[9em][s]{\bf   专\hspace{\fill}业\hspace{\fill}类\hspace{\fill}别\hspace{\fill}/\hspace{\fill}领\hspace{\fill}域:}  & {\songti\ziju{0.136875} \thu@cdepartment}\\
-    \makebox[9em][s]{\bf   研\hspace{\fill}究\hspace{\fill}方\hspace{\fill}向:}  & {\songti\ziju{0.136875} \thu@cmajor}\\
-    \makebox[9em][s]{\bf   申\hspace{\fill}请\hspace{\fill}学\hspace{\fill}位:}  & {\songti\ziju{0.136875} \thu@cdegree}\\
-    \makebox[9em][s]{\bf   指\hspace{\fill}导\hspace{\fill}教\hspace{\fill}师:}  & {\songti\ziju{0.136875} \thu@csupervisor}\\
-    \makebox[9em][s]{\bf   所\hspace{\fill}在\hspace{\fill}单\hspace{\fill}位:}  & {\songti\ziju{0.136875} \thu@ccollege}\\
-    \makebox[9em][s]{\bf   答\hspace{\fill}辩\hspace{\fill}日\hspace{\fill}期:}  & {\songti\ziju{0.136875} \thu@cdate}\\
-    \makebox[9em][s]{\bf   授\hspace{\fill}予\hspace{\fill}学\hspace{\fill}位\hspace{\fill}单\hspace{\fill}位:}  & {\songti\ziju{0.136875} \thu@corganization}\\
+\begin{tabular}{p{0.25\columnwidth}p{0.7\columnwidth}c}
+    \makebox[8em][s]{\bfseries   论\hspace{\fill}文\hspace{\fill}作\hspace{\fill}者：}  & {\songti\ziju{0.136875} \thu@cauthor}\\
+    \ifthu@professional
+      \makebox[8em][s]{\bfseries   专\hspace{\fill}业\hspace{\fill}类\hspace{\fill}别\hspace{\fill}/\hspace{\fill}领\hspace{\fill}域：}
+    \else
+      \makebox[8em][s]{\bfseries   学\hspace{\fill}科\hspace{\fill}专\hspace{\fill}业：}
+    \fi
+    & {\songti\ziju{0.136875} \thu@cdepartment}\\
+    \makebox[8em][s]{\bfseries   研\hspace{\fill}究\hspace{\fill}方\hspace{\fill}向：}  & {\songti\ziju{0.136875} \thu@cmajor}\\
+    \makebox[8em][s]{\bfseries   申\hspace{\fill}请\hspace{\fill}学\hspace{\fill}位：}  & {\songti\ziju{0.136875} \thu@cdegree}\\
+    \makebox[8em][s]{\bfseries   指\hspace{\fill}导\hspace{\fill}教\hspace{\fill}师：}  & {\songti\ziju{0.136875} \thu@csupervisor}\\
+    \makebox[8em][s]{\bfseries   所\hspace{\fill}在\hspace{\fill}单\hspace{\fill}位：}  & {\songti\ziju{0.136875} \thu@ccollege}\\
+    \makebox[8em][s]{\bfseries   答\hspace{\fill}辩\hspace{\fill}日\hspace{\fill}期：}  & {\songti\ziju{0.136875} \thu@cdate}\\
+    \makebox[8em][s]{\bfseries   授\hspace{\fill}予\hspace{\fill}学\hspace{\fill}位\hspace{\fill}单\hspace{\fill}位：}  & {\songti\ziju{0.136875} \thu@corganization}\\
 \end{tabular}
 }
 
-\par\vskip 18bp%
-        \xiaoer[1]\textrm{\thu@apply}%
-      }
+  \par\vskip 18bp%
+  \xiaoer[1]\textrm{\thu@apply}%
+}
 
 
       \fi
@@ -682,19 +728,20 @@
          }
      \end{center}
     \end{center}} % end of titlepage
- \newcommand{\thu@engcover}{   \newif\ifthu@professional\thu@professionalfalse
-  \ifthu@master
-    \ifthenelse{\equal{\thu@edegree}{\thu@master@art}}
-      {\relax}
-      {\ifthenelse{\equal{\thu@edegree}{\thu@master@sci}}
-        {\relax}
-        {\thu@professionaltrue}}
-  \fi
-  \ifthu@doctor
-    \ifthenelse{\equal{\thu@edegree}{\thu@doctor@phi}}
-      {\relax}
-      {\thu@professionaltrue}
-  \fi
+ \newcommand{\thu@engcover}{   
+  %  \newif\ifthu@professional\thu@professionalfalse
+  % \ifthu@master
+  %   \ifthenelse{\equal{\thu@edegree}{\thu@master@art}}
+  %     {\relax}
+  %     {\ifthenelse{\equal{\thu@edegree}{\thu@master@sci}}
+  %       {\relax}
+  %       {\thu@professionaltrue}}
+  % \fi
+  % \ifthu@doctor
+  %   \ifthenelse{\equal{\thu@edegree}{\thu@doctor@phi}}
+  %     {\relax}
+  %     {\thu@professionaltrue}
+  % \fi
   \ifthu@doctor
   \begin{center}
     \vspace*{-5pt}

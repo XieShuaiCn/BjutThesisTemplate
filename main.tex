@@ -2,8 +2,11 @@
 %!TEX TS-program = xelatex
 %!TEX encoding = UTF-8 Unicode
 
-% 学硕和专硕请将目录下对应的cls文件重命名为bjutthesis.cls
-\documentclass[type=master]{bjutthesis}
+% 项目地址：https://gitee.com/hrrcn/BjutThesisTemplate.git
+% type参数为学位类型，bachelor|master|doctor|postdoctor
+% 专硕使用参数professional,学硕去掉此参数。
+% 若无法编译加粗字体，添加参数AutoFakeBold；否则去掉参数。
+\documentclass[type=master,professional,AutoFakeBold]{bjutthesis}
 \usepackage{bjutthesis}
 
 % 定义所有的图片文件在 fig 子目录下

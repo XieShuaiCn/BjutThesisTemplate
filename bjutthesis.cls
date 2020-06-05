@@ -794,22 +794,22 @@
   \end{center}}
   %\fi
 \newcommand{\thu@authorization@mk}{%
-  \ifthu@bachelor\vspace*{0.2cm}\else\vspace*{0.42cm}\fi % shit code!
+  \ifthu@bachelor\vspace*{0.2cm}\else\vspace*{1.6cm}\fi % shit code!
   \begin{center}\erhao\heiti\thu@authtitle\end{center}
   \ifthu@bachelor\vskip5pt\else\vskip40pt\sihao[2.03]\fi\par
   \thu@authorization\par
   \textbf{\thu@authorizationaddon}\par
-  \ifthu@bachelor\vskip0.7cm\else\vskip1.0cm\fi
+  \ifthu@bachelor\vskip0.7cm\else\vskip0.1cm\fi
   \ifthu@bachelor
     \indent\mbox{\thu@authorsig\thu@underline\relax%
     \thu@teachersig\thu@underline\relax\thu@frontdate\thu@underline\relax}
   \else
     \begingroup
-      \parindent0pt\xiaosi
-      \hspace*{1.5cm}\thu@authorsig\thu@underline[7em]\relax\hfill%
-                     \thu@teachersig\thu@underline[7em]\relax\hspace*{1cm}\\[3pt]
-      \hspace*{1.5cm}\thu@frontdate\thu@underline[7em]\relax\hfill%
-                     \thu@frontdate\thu@underline[7em]\relax\hspace*{1cm}
+      \parindent0pt\dawu
+      \hspace*{0.8cm}\thu@authorsig\thu@underline[6em]\relax\hfill%
+      \hspace*{1.6cm}\thu@frontdate\relax\hspace*{1cm}\\[15pt]
+      \hspace*{0.8cm}\thu@teachersig\thu@underline[6em]\relax\hfill%
+      \hspace*{1.6cm}\thu@frontdate\relax\hspace*{1cm}
     \endgroup
   \fi}
 \def\makecover{%
